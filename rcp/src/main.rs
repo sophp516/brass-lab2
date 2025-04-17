@@ -59,9 +59,7 @@ fn main() {
     
     if dest_path.exists() {
         if n_flag {
-            if v_flag {
-                println!("{} not overwritten (due to -n)", dest_path.display());
-            }
+            println!("{} not overwritten (due to -n)", dest_path.display());
             return;
         } else if i_flag {
             eprint!("overwrite {}? (y/n) ", dest_path.display());
@@ -72,21 +70,11 @@ fn main() {
             }
             let trimmed = response.trim();
             if trimmed != "y" && trimmed != "Y" {
-                if v_flag {
-                    println!("{} not overwritten", dest_path.display());
-                }
+                println!("{} not overwritten", dest_path.display());
                 return;
             }
         }
     }
-
-    let mut dest_file = match File::create(dest_path) {
-        Ok(f) => f,
-        Err(e) => {
-            eprintln!("Failed to create destination file {}: {}", dest_path.display(), e);
-            process::exit(1);
-        }
-    };
 
     let mut reader = BufReader::new(source_file);
     let dest_file = match File::create(dest_path) {
